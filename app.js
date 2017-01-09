@@ -30,7 +30,7 @@ app.use('/', main);
 app.use('/index', users);
  
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handlergit
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
