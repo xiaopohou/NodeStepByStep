@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var dbconfig = require('../tool/dbConfig');
 var dbsql = require('../tool/dbSql');
 var pool = mysql.createPool(dbconfig.mysql);
-/* GET home page. */
+
 router.get('/index', function (req, res, next) {
   pool.getConnection(function (err, connection) {
     var
