@@ -6,12 +6,15 @@
   </head>
   <body>     
       <% include nav %>
-      
-      <form type="get" action="/form/submit">
+      <img src="/images/blue.png"/>
+      <%if(locals.isLogin){%>
+         已登录  <a href="/form/loginout">退出登录</a>
+      <%}else{%>
+      <form method="post">
           用户名：<input type="text" id="txtUserName" name="txtUserName" />
           密码：<input type="password" id="txtUserPwd" name="txtUserPwd" />
           <input type="submit" value="提交">
       </form>
-    
+      <%}%>
   </body>
 </html>

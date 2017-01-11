@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session')
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
@@ -18,7 +19,12 @@ var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(session({
+  secret:"hello world",
+  cookie:{maxAge: 60 * 1000 * 30},
+   resave: true,
+   saveUninitialized: true
+}));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -30,6 +36,22 @@ app.use('/', main);
 app.use('/index', users);
 //app.use('/main', main);
 app.use('/form', form);
+
+//过滤器
+app.use(function(req,res,next){
+
+   if(!req.session.isLogin){
+      if(req.url=="/form"){
+          next();
+      }else{
+        res.redirect('/form');
+      }
+   }else if(req.session.isLogin)
+   {
+      next();
+   }
+});
+
 // catch 404 and forward to error handlergit
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
